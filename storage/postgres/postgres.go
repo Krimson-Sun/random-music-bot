@@ -11,17 +11,17 @@ type Storage struct {
 	db *sql.DB
 }
 
-type dbParams struct {
-	dbName   string
-	host     string
-	user     string
-	password string
-	port     int
+type DatabaseParams struct {
+	DbName   string
+	Host     string
+	User     string
+	Password string
+	Port     int
 }
 
-func New(params dbParams) (*Storage, error) {
+func New(params DatabaseParams) (*Storage, error) {
 	db, err := sql.Open("postgres", fmt.Sprintf("dbname=%s host=%s user=%s password=%s port=%d sslmode=disable",
-		params.dbName, params.host, params.user, params.password, params.port))
+		params.DbName, params.Host, params.User, params.Password, params.Port))
 	if err != nil {
 		return nil, fmt.Errorf("err while opening db: %w", err)
 	}

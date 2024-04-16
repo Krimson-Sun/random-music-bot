@@ -4,7 +4,6 @@ import (
 	"context"
 	"flag"
 	"log"
-	"random-music-bot/clients/telegram"
 	"random-music-bot/storage/postgres"
 )
 
@@ -23,16 +22,22 @@ func mustToken() string {
 }
 
 func main() {
-	var dbParams = postgres.dbParams{}
+	var dbParams = postgres.DatabaseParams{
+		DbName:   "music",
+		Host:     "db",
+		User:     "postgres",
+		Password: "password",
+		Port:     5432,
+	}
 
-	s, err := postgres.New()
+	s, err := postgres.New(dbParams)
 	if err != nil {
 		log.Fatalf("err while creating storage: %v", err)
 	}
 
 	s.Init(context.TODO())
 
-	tgClient = telegram.New(hostTgBot, mustToken())
+	//tgClient := telegram.New(hostTgBot, mustToken())
 
 	// fetcher = fetcher.New()
 
